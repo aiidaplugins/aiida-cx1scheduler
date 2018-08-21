@@ -12,12 +12,9 @@ Plugin for PBSPro.
 This has been tested on PBSPro v. 12.
 """
 from __future__ import division
-
-import logging
-
 from aiida.scheduler.plugins.pbsbaseclasses import PbsBaseClass
+from aiida.scheduler import Scheduler
 
-_LOGGER = logging.getLogger(__name__)
 
 # This maps PbsPro status letters to our own status list
 
@@ -77,7 +74,7 @@ _LOGGER = logging.getLogger(__name__)
 #                                           * self.num_mpiprocs_per_machine)
 
 
-class Pbscx1Scheduler(PbsBaseClass):
+class Pbscx1Scheduler(PbsBaseClass, Scheduler):
     """
     Subclass to support the PBSPro scheduler
     (http://www.pbsworks.com/).
@@ -85,6 +82,7 @@ class Pbscx1Scheduler(PbsBaseClass):
 
     I redefine only what needs to change from the base class
     """
+    _logger = Scheduler._logger.getChild('pbspro_cx1')
 
     ## I don't need to change this from the base class
     # _job_resource_class = PbsJobResource
