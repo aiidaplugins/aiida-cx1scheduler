@@ -1,0 +1,36 @@
+{
+    "name": "aiida-scheduler-cx1",
+    "author": "Chris Sewell",
+    "author_email": "chrisj_sewell@hotmail.com",
+    "description": "AiiDA plugin template for testing and getting started with development",
+    "url": "https://github.com/aiidateam/aiida-scheduler-cx1",
+    "license": "Creative Commons",
+    "classifiers": [
+        "Programming Language :: Python"
+    ],
+    "version": "0.2.0",
+    "entry_points": {
+        "aiida.schedulers": [
+            "scheduler_cx1 = aiida_scheduler_cx1.schedulers.pbspro_cx1:Pbscx1Scheduler"
+        ]
+    },
+    "setup_requires": ["reentry"],
+    "reentry_register": true,
+    "install_requires": [
+        "aiida >= 0.11.0"
+    ],
+    "extras_require": {
+        "testing": [
+            "aiida-core[testing]"
+        ],
+        "pre-commit": [
+            "pre-commit",
+            "yapf",
+            "prospector",
+            "pylint"
+        ],
+        "docs": [
+            "sphinx"
+        ]
+    }
+}
