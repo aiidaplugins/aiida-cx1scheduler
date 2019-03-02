@@ -2,7 +2,7 @@
     "name": "aiida-scheduler-cx1",
     "author": "Chris Sewell",
     "author_email": "chrisj_sewell@hotmail.com",
-    "description": "AiiDA plugin template for testing and getting started with development",
+    "description": "AiiDA plugin interfacing with the Imperial College London cx1 HPC",
     "url": "https://github.com/aiidateam/aiida-scheduler-cx1",
     "license": "Creative Commons",
     "classifiers": [
