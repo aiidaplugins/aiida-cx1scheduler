@@ -33,7 +33,8 @@
         "pytest-cov",
         "pytest-timeout",
         "pytest-regressions",
-        "aiida-crystal17>=0.9.0b5"
+        "aiida-crystal17>=0.9.0b5",
+        "ase<3.18; python_version < '3'"
       ],
       "code_style": [
         "flake8<3.8.0,>=3.7.0",
