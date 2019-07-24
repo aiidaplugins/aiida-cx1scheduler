@@ -3,13 +3,13 @@
     "author": "Chris Sewell",
     "author_email": "chrisj_sewell@hotmail.com",
     "description": "AiiDA plugin interfacing with the Imperial College London cx1 HPC",
-    "url": "https://github.com/aiidateam/aiida-scheduler-cx1",
+    "url": "https://github.com/chrisjsewell/aiida-scheduler-cx1",
     "license": "MIT",
     "classifiers": [
         "Programming Language :: Python",
         "Framework :: AiiDA"
     ],
-    "version": "0.3.2",
+    "version": "0.3.3",
     "entry_points": {
         "aiida.schedulers": [
             "pbspro_cx1 = aiida_icl.schedulers.pbspro_cx1:PbsproCx1Scheduler"

@@ -33,7 +33,7 @@ test:
     - aiida_icl.utils
 
 about:
-  home: "https://github.com/aiidateam/aiida-scheduler-cx1"
+  home: "https://github.com/chrisjsewell/aiida-scheduler-cx1"
   license: "MIT"
   license_family: "MIT"
   license_file: "LICENSE"
