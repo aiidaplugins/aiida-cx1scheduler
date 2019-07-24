@@ -19,7 +19,6 @@
     "reentry_register": true,
     "install_requires": [
       "aiida-core==1.0.0b5",
-      "six",
       "ruamel.yaml"
     ],
     "extras_require": {

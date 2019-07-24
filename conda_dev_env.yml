@@ -7,7 +7,6 @@ dependencies:
 # install_requires
 - aiida-core==1.0.0b5
 - ruamel.yaml
-- six
 # testing
 - aiida-crystal17>=0.9.0b5
 - coverage

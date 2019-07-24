@@ -1,4 +1,16 @@
+[![Build Status](https://travis-ci.org/chrisjsewell/aiida-cx1scheduler.svg?branch=master)](https://travis-ci.org/chrisjsewell/aiida-cx1scheduler)
+[![PyPI](https://img.shields.io/pypi/v/aiida-icl.svg)](https://pypi.python.org/pypi/aiida-icl/)
+[![Anaconda-Server Badge](https://anaconda.org/cjs14/aiida-icl/badges/version.svg)](https://anaconda.org/cjs14/aiida-icl)
+
 # aiida_icl
+
+Installation:
+
+```console
+$ conda install -c cjs14 aiida-icl
+# or
+$ pip install aiida-icl
+```
 
 AiiDA plugin for working with HPC at Imperial College London.
 
