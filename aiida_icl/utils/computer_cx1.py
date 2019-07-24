@@ -5,10 +5,26 @@ from aiida.orm.utils.builders.computer import ComputerBuilder
 _COMPUTER_NAME = 'icl_cx1'
 
 
-def get_cx1_computer(work_dir, key_filename=None):
+def get_cx1_computer(work_dir=None, key_filename=None):
+    """get or create a Computer node, to interface with the ICL Cx1 HPC
+
+    Parameters
+    ----------
+    work_dir :str
+        absolute path to the work directory
+    key_filename : str
+        ssh key filename, e.g. /Users/user_name/.ssh/id_rsa
+
+    Returns
+    -------
+    aiida.orm.Computer
+
+    """
     try:
         computer_cx1 = Computer.objects.get(name=_COMPUTER_NAME)
     except NotExistent:
+        if work_dir is None:
+            raise ValueError('work_dir not specified')
         computer_builder = ComputerBuilder(
             label=_COMPUTER_NAME,
             description='Imperial HPC cx1 computer',

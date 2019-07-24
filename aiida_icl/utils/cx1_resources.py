@@ -6,7 +6,7 @@ Cx1Resources = namedtuple('Cx1Resources',
 
 # See:
 # http://www.imperial.ac.uk/admin-services/ict/self-service/research-support/rcs/computing/high-throughput-computing/job-sizing/
-job_class = AttributeDict({
+JOB_CLASSES = AttributeDict({
     'throughput_24': Cx1Resources(1, 1, 8, 10, 96, 24),
     'throughput_72': Cx1Resources(1, 1, 8, 10, 96, 72),
     'general_24': Cx1Resources(1, 16, 32, 10, 62, 24),
@@ -18,7 +18,7 @@ job_class = AttributeDict({
 })
 
 
-def get_default_options(resources, nnodes=None, queue=None, mem_gb=None):
+def get_calulation_options(resources, nnodes=None, queue=None, mem_gb=None):
     # type: (Cx1Resources, int, str) -> dict
     """ return dict to parse to calculation `metadata.options`
     """

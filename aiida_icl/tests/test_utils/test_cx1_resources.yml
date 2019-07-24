@@ -1,0 +1,6 @@
+max_memory_kb: 10000000
+max_wallclock_seconds: 86400
+resources:
+  num_machines: 1
+  num_mpiprocs_per_machine: 32
+withmpi: true
