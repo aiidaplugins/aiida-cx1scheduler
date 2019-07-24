@@ -19,3 +19,5 @@ _archive/
 databases/
 test_workdir/
 _archive/
+build/
+dist/
