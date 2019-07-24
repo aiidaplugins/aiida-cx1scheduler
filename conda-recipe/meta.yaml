@@ -1,5 +1,5 @@
 {% set name = "aiida-icl" %}
-{% set version = "0.3.2" %}
+{% set version = "0.3.3" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,10 +7,10 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "421bd7ebb813e8c39658f9143de0186f769d5131faf36b11b7a26485ef781049"
+  sha256: "626f50584d52eafa4ecc3d89375d0c3cb51522819e074c0cde635c90214d56c6"
 
 build:
-  number: 0
+  number: 1
   noarch: "python"
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
@@ -33,7 +33,7 @@ test:
     - aiida_icl.utils
 
 about:
-  home: "https://github.com/chrisjsewell/aiida-scheduler-cx1"
+  home: "https://github.com/chrisjsewell/aiida-cx1scheduler"
   license: "MIT"
   license_family: "MIT"
   license_file: "LICENSE"
