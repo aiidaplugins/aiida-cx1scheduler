@@ -1,37 +1,64 @@
 language: python
-python:
-- "2.7"
 
 cache: pip
 
 services:
 - postgresql
+- rabbitmq
 
 addons:
-  postgresql: "9.4"
-  #postgresql: "9.5" # Available in Trusty only
-  apt:
-    packages:
-    - texlive-base
-    - texlive-generic-recommended
-    - texlive-fonts-recommended
-    - texlive-latex-base
-    - texlive-latex-recommended
-    - texlive-latex-extra
-    - dvipng
-    - dvidvi
+  postgresql: "10.6"
+
+matrix:
+  include:
+    - python: 3.6
+      env: TEST_TYPE="pre-commit"
+    - python: 3.6
+      env: TEST_TYPE="pytest" TEST_AIIDA_BACKEND="django" PYPI_DEPLOY=true
+    - python: 2.7
+      env: TEST_TYPE="pytest" TEST_AIIDA_BACKEND="django"
+
+  # allow_failures:
+  #   - env: TEST_TYPE="docs" READTHEDOCS="True"
 
 install:
 # Upgrade pip setuptools and wheel
-- pip install -U pip wheel setuptools
-- pip install .[precommit,testing]
-- reentry scan -r aiida
+- pip install -U wheel setuptools "reentry>=1.3"
+- |
+    if [[ "$TEST_TYPE" == "pre-commit" ]]; then
+      pip uninstall -y numpy
+      pip install -e .[code_style]
+    fi
+- |
+    if [[ "$TEST_TYPE" == "pytest" ]]; then
+      pip uninstall -y numpy
+      pip install -e .[testing]
+      pip install coveralls
+    fi
 
-env:
-- TEST_AIIDA_BACKEND=django
-- TEST_AIIDA_BACKEND=sqlalchemy
+before_script:
+- reentry scan
 
-script: .travis-data/script.sh
+script:
+- |
+  if [[ "$TEST_TYPE" == "pytest" ]]; then
+      pytest -v --cov=aiida_icl --cov=examples --cov-config .coveragerc --cov-report= aiida_icl
+  fi
+- |
+  if [[ "$TEST_TYPE" == "pre-commit" ]]; then
+    pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )
+  fi
 
-git:
-  depth: 3
+after_success:
+- coveralls
+
+deploy:
+  - provider: pypi
+    distributions: "sdist bdist_wheel"
+    user: cjsewell
+    password:
+      secure: VCQWK8xNFFKaWOswrtlvEqn/ULz8qjy80Y5xoXjh/tQHnfqtUSHiDh7i5BeDTYepG/C4qkGLApHp2oEOs5JM2bp8QMCVz0ERsMlX8IYAs7iMA85w9rcYWUXk/EkqPC07pyoCLk7wGlSmWnjnrfWfO9Wu5i2Ys7kpiJD6/pcbnGeAuyUv7lI+giAYiDFMjX9T4Iqh2QA2hPjVz0GVqmZyh4FDxlLNJBTvySGlrr4WDjidUamK06eqNBQ6pGGUGRjbu+KNgpSOkZBrLuDJYHhxoqYYPlIGFxWtXyBA1bQxYWWnR0R2iS93TC3TKExznFKsvN/Q11vdlnH6yophJxhimlUhDJXG70cVzsAsxXgLmQtA0Mb5nDsx0lxisAffHeKYAcoSfEg9Fj906L1vH+8/9AnVBQ2sgGB/ob9PpIyvrJoYArMmoj6O/lyNuvzufs6TVUP+iY2+Se8QCwW7l+Izh74GrWBah3Zb4j8JDNLqzjG90qmEoyjMLA67NVDqzfzEIQdZ5q8By5TIJWyv9LhHdJ6Jjl9KQCWD9w9lYzVkYI9W7J7gg8bof9oTLZ9Ntl0NwBpZV3YMpDFQNMl8OP6eNWlXCE5vS2mFPR8Lwk+s1mfq1MrSYXQQKa5m3Dt4p8PzNWrDsf8/94bwR35F+jMfRKdhwRhSvAa8AhXO1y+lJoU=
+    on:
+      branch: master
+      tags: true
+      condition: $PYPI_DEPLOY = true

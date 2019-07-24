@@ -1,17 +1,54 @@
 # Install pre-commit hooks via
 # pre-commit install
- 
-# yapf = yet another python formatter
-- repo: git://github.com/pre-commit/mirrors-yapf
-  sha: v0.17.0
-  hooks:
-  - id: yapf
-    language: system
 
-# prospector: collection of python linters
-- repo: git://github.com/guykisel/prospector-mirror
-  sha: b27f281eb9398fc8504415d7fbdabf119ea8c5e1
+- repo: git://github.com/pre-commit/pre-commit-hooks
+  sha: v2.2.3
   hooks:
-  - id: prospector
+  - id: check-json
+  - id: check-yaml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  - id: double-quote-string-fixer
+  - id: flake8
+
+- repo: local
+  hooks:
+
+  - id: yapf
+    name: Yet Another Python Formatter
+    entry: yapf
     language: system
-    exclude: '^(tests/)|(examples/)'
+    types: [python]
+    args: ["-i", "-vv"]
+
+  - id: version-number
+    name: Check version numbers
+    entry: python ./.pre_commit/check_version.py version
+    language: system
+    files: >-
+      (?x)^(
+        setup.json|
+        .pre_commit/check_version.py|
+        aiida_icl/__init__.py
+      )$
+    pass_filenames: false
+
+  - id: conda
+    name: Create environment.yml
+    entry: python ./.pre_commit/check_version.py conda
+    language: system
+    files: >-
+      (?x)^(
+        setup.json|
+        setup.py|
+        .pre_commit/check_version.py|
+        conda_dev_env.yml|
+      )$
+    pass_filenames: false
+
+  - id: travis-linter
+    name: Travis Lint
+    entry: travis lint
+    files: .travis.yml
+    language: ruby
+    additional_dependencies: ['travis']
