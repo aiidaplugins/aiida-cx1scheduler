@@ -1,5 +1,5 @@
 {% set name = "aiida-icl" %}
-{% set version = "0.3.3" %}
+{% set version = "0.3.4" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,10 +7,10 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "626f50584d52eafa4ecc3d89375d0c3cb51522819e074c0cde635c90214d56c6"
+  sha256: "5c82bd906d3dc9f621089cfb3db41940794ba7f1d73f2ed678f1ca8961c37050"
 
 build:
-  number: 1
+  number: 0
   noarch: "python"
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
